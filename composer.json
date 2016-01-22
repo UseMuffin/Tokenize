@@ -1,0 +1,55 @@
+{
+    "name": "muffin/tokenize",
+    "description": "Security Tokens",
+    "type": "cakephp-plugin",
+    "keywords": [
+        "cakephp",
+        "muffin",
+        "tokenize"
+    ],
+    "homepage": "https://github.com/usemuffin/tokenize",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jad Bitar",
+            "homepage": "http://jadb.io",
+            "role": "Author"
+        },
+        {
+            "name": "ADmad",
+            "homepage": "https://github.com/ADmad",
+            "role": "Author"
+        },
+        {
+            "name": "Others",
+            "homepage": "https://github.com/usemuffin/tokenize/graphs/contributors"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/usemuffin/tokenize/issues",
+        "source": "https://github.com/usemuffin/tokenize"
+    },
+    "require": {
+    },
+    "require-dev": {
+        "cakephp/cakephp": "~3.0",
+        "cakephp/cakephp-codesniffer": "2.*",
+        "phpunit/phpunit": "4.1.*",
+        "cakephp/migrations": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Muffin\\Tokenize\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Muffin\\Tokenize\\Test\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
