@@ -41,10 +41,12 @@ class TokensTable extends Table
             return false;
         }
 
-        $table = $this->foreignTable($result);
-        $fields = $result['foreign_data'];
-        $conditions = [$table->primaryKey() => $result['foreign_key']];
-        $table->updateAll($fields, $conditions);
+        if (!empty($result['foreign_data'])) {
+            $table = $this->foreignTable($result);
+            $fields = $result['foreign_data'];
+            $conditions = [$table->primaryKey() => $result['foreign_key']];
+            $table->updateAll($fields, $conditions);
+        }
 
         $result->set('status', true);
         $this->save($result);
