@@ -53,7 +53,7 @@ class TokensTable extends Table
         $this->save($result);
 
         $this->dispatchEvent('Muffin/Tokenize.afterVerify', ['token' => $result]);
-        return true;
+        return $result;
     }
 
     protected function foreignTable(Token $token)

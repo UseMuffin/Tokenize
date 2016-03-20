@@ -66,6 +66,7 @@ class TokensTableTest extends TestCase
 
     public function testVerify()
     {
-        $this->assertTrue($this->Tokens->verify('1736a03c6c811ef5e02a364f39521590'));
+        $result = $this->Tokens->verify('1736a03c6c811ef5e02a364f39521590');
+        $this->assertTrue($result instanceof \Muffin\Tokenize\Model\Entity\Token);
     }
 }
