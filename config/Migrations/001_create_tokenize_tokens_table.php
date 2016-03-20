@@ -12,7 +12,7 @@ class CreateTokenizeTokensTable extends AbstractMigration
             'primary_key' => 'id',
         ]);
 
-        $table->addColumn('id', 'integer', ['auto_increment' => true, 'signed' => true]);
+        $table->addColumn('id', 'integer', ['identity' => true, 'signed' => true]);
         $table->addColumn('token', 'string');
         $table->addColumn('foreign_alias', 'string');
         $table->addColumn('foreign_table', 'string');
@@ -24,13 +24,13 @@ class CreateTokenizeTokensTable extends AbstractMigration
         $table->addColumn('modified', 'datetime');
 
         $table->addPrimaryKey('id');
-        $table->addIndex('TOKENIZE_TOKEN', ['columns' => 'token', 'type' => Index::UNIQUE]);
-        $table->addIndex('TOKENIZE_STATUS', ['columns' => 'status']);
-        $table->addIndex('TOKENIZE_MODEL', ['columns' => [
+        $table->addIndex('token', ['name' => 'TOKENIZE_TOKEN', 'type' => Index::UNIQUE]);
+        $table->addIndex('status', ['name' => 'TOKENIZE_STATUS']);
+        $table->addIndex([
             'foreign_alias',
             'foreign_table',
             'foreign_key',
-        ]]);
+        ], ['name' => 'TOKENIZE_MODEL']);
 
         $table->create();
     }
