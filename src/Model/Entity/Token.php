@@ -47,4 +47,9 @@ class Token extends Entity
 
         return bin2hex(call_user_func($function, $length / 2));
     }
+
+    public function __toString()
+    {
+        return $this->token;
+    }
 }
