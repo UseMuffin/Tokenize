@@ -29,13 +29,26 @@ composer require muffin/tokenize:1.0.x-dev
 You then need to load the plugin. You can use the shell command:
 
 ```
-bin/cake plugin load Muffin/Tokenize
+bin/cake plugin load Muffin/Tokenize --bootstrap --routes
 ```
 
 or by manually adding statement shown below to `bootstrap.php`:
 
 ```php
-Plugin::load('Muffin/Tokenize');
+Plugin::load('Muffin/Tokenize', ['bootstrap' => true, 'routes' => true]);
+```
+
+This will ensure that:
+
+- the token's `length` and `lifetime` are configured
+- the `json` database schema type is defined
+- the `/verify/:token` route is configured
+
+Before you can use it though, you will need to create the required table. A migration file was
+added to help you with that:
+
+```sh
+bin/cake migrations migrate --plugin Muffin/Tokenize
 ```
 
 ## How it works
@@ -70,6 +83,21 @@ $this->addBehavior('Muffin/Tokenize.Tokenize', [
         'Model.afterSave' => 'afterSave',
     ],
 ]);
+```
+
+Finally, if you just wish to create a token on the fly for other custom scenarios (i.e. password-less
+login), you can manually create a token:
+
+```php
+$this->Users->tokenize($user['id']);
+```
+
+The above operation, will return a `Muffin\Tokenize\Model\Entity\Token` instance.
+
+To verify a token from  a controller's action:
+
+```php
+$result = $this->Users->Tokens->verify($token);
 ```
 
 ## Patches & Features
