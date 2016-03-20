@@ -63,4 +63,9 @@ class TokensTableTest extends TestCase
     {
         $this->Tokens->verify('expired');
     }
+
+    public function testVerify()
+    {
+        $this->assertTrue($this->Tokens->verify('1736a03c6c811ef5e02a364f39521590'));
+    }
 }
