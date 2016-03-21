@@ -33,6 +33,14 @@ class TokensTable extends Table
         return $query->where($options);
     }
 
+    public function deleteAllExpiredOrUsed()
+    {
+        return $this->deleteAll(['OR' => [
+            'expired <' => new DateTime(),
+            'status' => true,
+        ]]);
+    }
+
     public function verify($token)
     {
         $result = $this->find('token', compact('token'))->firstOrFail();
