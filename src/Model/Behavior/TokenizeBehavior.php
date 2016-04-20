@@ -90,7 +90,7 @@ class TokenizeBehavior extends Behavior
      * @param array $data
      * @return mixed
      */
-    public function tokenize($id, array $data)
+    public function tokenize($id, array $data = [])
     {
         $assoc = $this->config('associationAlias');
 
@@ -102,7 +102,7 @@ class TokenizeBehavior extends Behavior
         ];
 
         $table = $this->_table->$assoc;
-        $token = $table->newEntity($tokenData);
+        $token = $table->newEntity(array_filter($tokenData));
 
         if (!$table->save($token)) {
             throw new \RuntimeException();

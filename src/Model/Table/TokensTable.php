@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use DateTime;
+use Muffin\Tokenize\Model\Entity\Token;
 
 class TokensTable extends Table
 {
@@ -32,6 +33,14 @@ class TokensTable extends Table
         return $query->where($options);
     }
 
+    public function deleteAllExpiredOrUsed()
+    {
+        return $this->deleteAll(['OR' => [
+            'expired <' => new DateTime(),
+            'status' => true,
+        ]]);
+    }
+
     public function verify($token)
     {
         $result = $this->find('token', compact('token'))->firstOrFail();
@@ -41,15 +50,18 @@ class TokensTable extends Table
             return false;
         }
 
-        $table = $this->foreignTable($result);
-        $fields = $result['foreign_data'];
-        $conditions = [$table->primaryKey() => $result['foreign_key']];
-        $table->updateAll($fields, $conditions);
+        if (!empty($result['foreign_data'])) {
+            $table = $this->foreignTable($result);
+            $fields = $result['foreign_data'];
+            $conditions = [$table->primaryKey() => $result['foreign_key']];
+            $table->updateAll($fields, $conditions);
+        }
 
         $result->set('status', true);
         $this->save($result);
 
         $this->dispatchEvent('Muffin/Tokenize.afterVerify', ['token' => $result]);
+        return $result;
     }
 
     protected function foreignTable(Token $token)
