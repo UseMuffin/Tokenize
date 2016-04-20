@@ -49,7 +49,7 @@ class TokenizeBehavior extends Behavior
      * @param \ArrayObject $options
      * @param $primary
      */
-    public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options, $primary)
+    public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options)
     {
         $data = $this->fields($entity);
 
