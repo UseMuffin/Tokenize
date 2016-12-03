@@ -20,6 +20,8 @@ class TokensTable extends Table
         $this->table('tokenize_tokens');
         $this->primaryKey('id');
         $this->displayField('token');
+
+        $this->addBehavior('Timestamp');
     }
 
     public function findToken(Query $query, array $options)

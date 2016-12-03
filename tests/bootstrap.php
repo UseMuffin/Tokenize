@@ -19,7 +19,7 @@ $findRoot = function ($root) {
     throw new Exception("Cannot find the root of the application, unable to run tests");
 };
 $root = $findRoot(__FILE__);
-$path = dirname(dirname(__FILE__)) . DS;
+$path = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR;
 unset($findRoot);
 
 chdir($root);

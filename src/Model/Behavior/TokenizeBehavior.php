@@ -100,9 +100,13 @@ class TokenizeBehavior extends Behavior
             'foreign_key' => $id,
             'foreign_data' => $data,
         ];
+        $tokenData = array_filter($tokenData);
+        if (!isset($tokenData['foreign_data'])) {
+            $tokenData['foreign_data'] = [];
+        }
 
         $table = $this->_table->$assoc;
-        $token = $table->newEntity(array_filter($tokenData));
+        $token = $table->newEntity($tokenData);
 
         if (!$table->save($token)) {
             throw new \RuntimeException();
