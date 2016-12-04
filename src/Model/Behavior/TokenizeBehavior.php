@@ -26,7 +26,8 @@ class TokenizeBehavior extends Behavior
      * Verifies the configuration and associates the table to the
      * `tokenize_tokens` table.
      *
-     * @param array $config
+     * @param array $config Config
+     * @return void
      */
     public function initialize(array $config)
     {
@@ -44,10 +45,10 @@ class TokenizeBehavior extends Behavior
     }
 
     /**
-     * @param \Cake\Event\Event $event
-     * @param \Cake\Datasource\EntityInterface $entity
-     * @param \ArrayObject $options
-     * @param $primary
+     * @param \Cake\Event\Event $event Event
+     * @param \Cake\Datasource\EntityInterface $entity Entity
+     * @param \ArrayObject $options Options
+     * @return void
      */
     public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options)
     {
@@ -61,6 +62,7 @@ class TokenizeBehavior extends Behavior
             if (array_key_exists('Model.afterSave', $this->implementedEvents())) {
                 $options['tokenize_fields'] = $data;
             }
+
             return;
         }
 
@@ -69,9 +71,10 @@ class TokenizeBehavior extends Behavior
     }
 
     /**
-     * @param \Cake\Event\Event $event
-     * @param \Cake\Datasource\EntityInterface $entity
-     * @param \ArrayObject $options
+     * @param \Cake\Event\Event $event Event
+     * @param \Cake\Datasource\EntityInterface $entity Entity
+     * @param \ArrayObject $options Options
+     * @return void
      */
     public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options)
     {
@@ -86,8 +89,8 @@ class TokenizeBehavior extends Behavior
     /**
      * Creates a token for a data sample.
      *
-     * @param $id
-     * @param array $data
+     * @param int|string $id Id
+     * @param array $data Data
      * @return mixed
      */
     public function tokenize($id, array $data = [])
@@ -118,7 +121,7 @@ class TokenizeBehavior extends Behavior
     /**
      * Returns fields that have been marked as protected.
      *
-     * @param \Cake\Datasource\EntityInterface $entity
+     * @param \Cake\Datasource\EntityInterface $entity Entity
      * @return array
      */
     public function fields(EntityInterface $entity)
@@ -131,6 +134,7 @@ class TokenizeBehavior extends Behavior
             $fields[$field] = $entity->$field;
             $entity->dirty($field, false);
         }
+
         return $fields;
     }
 }

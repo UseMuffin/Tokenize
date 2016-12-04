@@ -13,7 +13,10 @@ class TokensTable extends Table
 {
 
     /**
-     * @param array $config
+     * Initialize table
+     *
+     * @param array $config Config
+     * @return void
      */
     public function initialize(array $config)
     {
@@ -24,6 +27,13 @@ class TokensTable extends Table
         $this->addBehavior('Timestamp');
     }
 
+    /**
+     * Custom finder "token"
+     *
+     * @param \Cake\Datasource\Query $query Query
+     * @param array $options Options
+     * @return \Cake\Datasource\Query
+     */
     public function findToken(Query $query, array $options)
     {
         $options += [
@@ -35,6 +45,11 @@ class TokensTable extends Table
         return $query->where($options);
     }
 
+    /**
+     * Delete all expired or used tokens.
+     *
+     * @return bool
+     */
     public function deleteAllExpiredOrUsed()
     {
         return $this->deleteAll(['OR' => [
@@ -43,6 +58,12 @@ class TokensTable extends Table
         ]]);
     }
 
+    /**
+     * Verify token
+     *
+     * @param string $token Token
+     * @return bool|\Cake\Datasource\EntityInterface
+     */
     public function verify($token)
     {
         $result = $this->find('token', compact('token'))->firstOrFail();
@@ -63,9 +84,14 @@ class TokensTable extends Table
         $this->save($result);
 
         $this->dispatchEvent('Muffin/Tokenize.afterVerify', ['token' => $result]);
+
         return $result;
     }
 
+    /**
+     * @param \Muffin\Tokenize\Model\Entity\Token $token Token entity
+     * @return \Cake\Datasource\RepositoryInterface
+     */
     protected function foreignTable(Token $token)
     {
         $options = [];
@@ -79,12 +105,13 @@ class TokensTable extends Table
     }
 
     /**
-     * @param \Cake\Database\Schema\Table $schema
+     * @param \Cake\Database\Schema\Table $schema Schema
      * @return \Cake\Database\Schema\Table
      */
     protected function _initializeSchema(Schema $schema)
     {
         $schema->columnType('foreign_data', 'json');
+
         return $schema;
     }
 }

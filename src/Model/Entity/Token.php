@@ -13,8 +13,8 @@ class Token extends Entity
     /**
      * Token constructor.
      *
-     * @param array $properties
-     * @param array $options
+     * @param array $properties Properties
+     * @param array $options Options
      */
     public function __construct(array $properties = [], array $options = [])
     {
@@ -30,7 +30,7 @@ class Token extends Entity
     /**
      * Creates a secure random token.
      *
-     * @param null $length
+     * @param null $length Token length
      * @return string
      * @see http://stackoverflow.com/a/29137661/2020428
      */
@@ -48,6 +48,11 @@ class Token extends Entity
         return bin2hex(call_user_func($function, $length / 2));
     }
 
+    /**
+     * To string
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->token;
