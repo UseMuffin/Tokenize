@@ -12,7 +12,9 @@ class TokensControllerTest extends TestCase
      */
     public function testVerify()
     {
-        $request = $this->getMock('Cake\Network\Request', ['param']);
+        $request = $this->getMockBuilder('Cake\Network\Request')
+            ->setMethods(['param'])
+            ->getMock();
         $request->expects($this->once())
             ->method('param')
             ->with('token')

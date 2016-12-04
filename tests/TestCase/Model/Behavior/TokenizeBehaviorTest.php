@@ -54,13 +54,19 @@ class TokenizeBehaviorTest extends TestCase
         $options = new \ArrayObject();
         $config = ['implementedEvents' => ['Model.afterSave' => 'afterSave'], 'fields' => 'email'];
 
-        $table = $this->getMock('Cake\ORM\Table', ['dispatchEvent'], [[
-            'table' => 'tokenize_users',
-            'alias' => 'Users',
-        ]]);
+        $table = $this->getMockBuilder('Cake\ORM\Table')
+            ->setMethods(['dispatchEvent'])
+            ->setConstructorArgs([[
+                'table' => 'tokenize_users',
+                'alias' => 'Users',
+            ]])
+            ->getMock();
         $table->primaryKey('id');
 
-        $behavior = $this->getMock(TokenizeBehavior::class, ['fields', 'tokenize'], [$table, $config]);
+        $behavior = $this->getMockBuilder('Muffin\Tokenize\Model\Behavior\TokenizeBehavior')
+            ->setMethods(['fields', 'tokenize'])
+            ->setConstructorArgs([$table, $config])
+            ->getMock();
         $behavior->expects($this->once())
             ->method('fields')
             ->with($entity)
@@ -80,16 +86,22 @@ class TokenizeBehaviorTest extends TestCase
         $options = new \ArrayObject();
         $token = 'foo';
 
-        $table = $this->getMock('Cake\ORM\Table', ['dispatchEvent'], [[
-            'table' => 'tokenize_users',
-            'alias' => 'Users',
-        ]]);
+        $table = $this->getMockBuilder('Cake\ORM\Table')
+            ->setMethods(['dispatchEvent'])
+            ->setConstructorArgs([[
+                'table' => 'tokenize_users',
+                'alias' => 'Users',
+            ]])
+            ->getMock();
         $table->primaryKey('id');
         $table->expects($this->once())
             ->method('dispatchEvent')
             ->with('Model.afterTokenize', compact('entity', 'token'));
 
-        $behavior = $this->getMock(TokenizeBehavior::class, ['fields', 'tokenize'], [$table]);
+        $behavior = $this->getMockBuilder('Muffin\Tokenize\Model\Behavior\TokenizeBehavior')
+            ->setMethods(['fields', 'tokenize'])
+            ->setConstructorArgs([$table])
+            ->getMock();
         $behavior->expects($this->once())
             ->method('fields')
             ->with($entity)
@@ -110,16 +122,22 @@ class TokenizeBehaviorTest extends TestCase
         $token = 'foo';
         $options = new \ArrayObject(['tokenize_fields' => $fields]);
 
-        $table = $this->getMock('Cake\ORM\Table', ['dispatchEvent'], [[
-            'table' => 'tokenize_users',
-            'alias' => 'Users',
-        ]]);
+        $table = $this->getMockBuilder('Cake\ORM\Table')
+            ->setMethods(['dispatchEvent'])
+            ->setConstructorArgs([[
+                'table' => 'tokenize_users',
+                'alias' => 'Users',
+            ]])
+            ->getMock();
         $table->primaryKey('id');
         $table->expects($this->once())
             ->method('dispatchEvent')
             ->with('Model.afterTokenize', compact('entity', 'token'));
 
-        $behavior = $this->getMock(TokenizeBehavior::class, ['fields', 'tokenize'], [$table]);
+        $behavior = $this->getMockBuilder('Muffin\Tokenize\Model\Behavior\TokenizeBehavior')
+            ->setMethods(['fields', 'tokenize'])
+            ->setConstructorArgs([$table])
+            ->getMock();
         $behavior->expects($this->once())
             ->method('tokenize')
             ->with($id, $fields)
@@ -145,12 +163,19 @@ class TokenizeBehaviorTest extends TestCase
         ];
         $token = new Token($tokenData, ['markNew' => false, 'markClean' => true]);
 
-        $table = $this->getMock('Cake\ORM\Table', ['dispatchEvent'], [[
-            'table' => 'tokenize_users',
-            'alias' => 'Users',
-        ]]);
+        $table = $this->getMockBuilder('Cake\ORM\Table')
+            ->setMethods(['dispatchEvent'])
+            ->setConstructorArgs([[
+                'table' => 'tokenize_users',
+                'alias' => 'Users',
+            ]])
+            ->getMock();
         $table->primaryKey('id');
-        $table->Tokens = $this->getMock(TokensTable::class, ['newEntity', 'save'], [], 'TokensTable');
+
+        $table->Tokens = $this->getMockBuilder('Muffin\Tokenize\Model\Table\TokensTable')
+            ->setMethods(['newEntity', 'save'])
+            ->setConstructorArgs([])
+            ->getMock();
         $table->Tokens->expects($this->once())
             ->method('newEntity')
             ->with($tokenData)
