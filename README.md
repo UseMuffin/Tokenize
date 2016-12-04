@@ -15,7 +15,7 @@ Or maybe just a confirmation link when updating their credentials?
 
 Ok, ok - maybe before cancelling a subscription or better, before sending funds out.
 
-Well, now you can. Attach listeners to your models for sending out emails (or any other 
+Well, now you can. Attach listeners to your models for sending out emails (or any other
 notification method of your choice), and you're good to go!
 
 ## Install
@@ -23,7 +23,7 @@ notification method of your choice), and you're good to go!
 Using [Composer][composer]:
 
 ```
-composer require muffin/tokenize:1.0.x-dev
+composer require muffin/tokenize
 ```
 
 You then need to load the plugin. You can use the shell command:
@@ -54,12 +54,12 @@ bin/cake migrations migrate --plugin Muffin/Tokenize
 ## How it works
 
 When creating or updating a record, and if the data contains any *tokenized* field(s), a token
-will automatically be created along with the value of the field(s) in question. 
+will automatically be created along with the value of the field(s) in question.
 
-When this happens the `Model.afterTokenize` event is fired and passed the operation's related 
-entity and the associated token that was created for it. 
+When this happens the `Model.afterTokenize` event is fired and passed the operation's related
+entity and the associated token that was created for it.
 
-The initial (save or update) operation resumes but without the *tokenized* fields. 
+The initial (save or update) operation resumes but without the *tokenized* fields.
 
 The *tokenized* fields will only be updated upon submission of their associated token.
 
