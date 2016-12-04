@@ -34,7 +34,7 @@ class TokenizeBehavior extends Behavior
         $this->verifyConfig();
 
         $this->_table->hasMany($this->config('associationAlias'), [
-            'className' => TokensTable::class,
+            'className' => 'Muffin/Tokenize.Tokens',
             'foreignKey' => 'foreign_key',
             'conditions' => [
                 'foreign_alias' => $this->_table->alias(),
