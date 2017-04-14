@@ -1,7 +1,7 @@
 <?php
 namespace Muffin\Tokenize\Model\Table;
 
-use Cake\Database\Schema\Table as Schema;
+use Cake\Database\Schema\TableSchema as Schema;
 use Cake\Event\Event;
 use Cake\ORM\Query;
 use Cake\ORM\Table;
