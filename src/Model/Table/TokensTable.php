@@ -108,7 +108,7 @@ class TokensTable extends Table
      * @param \Cake\Database\Schema\Table $schema Schema
      * @return \Cake\Database\Schema\Table
      */
-    protected function _initializeSchema(Schema $schema)
+    protected function _initializeSchema(TableSchema $schema)
     {
         $schema->columnType('foreign_data', 'json');
 
