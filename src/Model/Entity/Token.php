@@ -42,7 +42,7 @@ class Token extends Entity
     /**
      * Creates a secure random token.
      *
-     * @param null $length Token length
+     * @param int|null $length Token length
      * @return string
      * @see http://stackoverflow.com/a/29137661/2020428
      */
