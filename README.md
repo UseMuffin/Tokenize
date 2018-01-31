@@ -38,13 +38,19 @@ or by manually adding statement shown below to `bootstrap.php`:
 Plugin::load('Muffin/Tokenize', ['routes' => true]);
 ```
 
-This will ensure that:
+This will ensure that the route for `/verify/:token` style URL is configured.
 
-- the token's `length` and `lifetime` are configured
-- the `json` database schema type is defined
-- the `/verify/:token` route is configured
+You can also customize the token's length and lifetime through `Configure` as
+shown below:
 
-Before you can use it though, you will need to create the required table. A migration file was
+```php
+Configure::write('Muffin/Tokenize', [
+    'lifetime' => '3 days', // Default value
+    'length' => 32, // Default value
+]);
+```
+
+You will also need to create the required table. A migration file was
 added to help you with that:
 
 ```sh
