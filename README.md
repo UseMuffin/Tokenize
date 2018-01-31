@@ -40,8 +40,6 @@ Plugin::load('Muffin/Tokenize', ['routes' => true]);
 
 This will ensure that:
 
-- the token's `length` and `lifetime` are configured
-- the `json` database schema type is defined
 - the `/verify/:token` route is configured
 
 Before you can use it though, you will need to create the required table. A migration file was
@@ -49,6 +47,18 @@ added to help you with that:
 
 ```sh
 bin/cake migrations migrate --plugin Muffin/Tokenize
+```
+
+## Configure
+
+You can configure token's `length`, `lifetime` and `table` in your `bootstrap.php` or leave defaults.
+
+```
+Configure::write('Muffin/Tokenize', [
+    'lifetime' => '3 days',
+    'length' => 32,
+    'table' => 'tokenize_tokens',
+]);
 ```
 
 ## How it works
