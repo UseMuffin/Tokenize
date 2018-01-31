@@ -29,13 +29,13 @@ composer require muffin/tokenize
 You then need to load the plugin. You can use the shell command:
 
 ```
-bin/cake plugin load Muffin/Tokenize --bootstrap --routes
+bin/cake plugin load Muffin/Tokenize --routes
 ```
 
 or by manually adding statement shown below to `bootstrap.php`:
 
 ```php
-Plugin::load('Muffin/Tokenize', ['bootstrap' => true, 'routes' => true]);
+Plugin::load('Muffin/Tokenize', ['routes' => true]);
 ```
 
 This will ensure that:

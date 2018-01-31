@@ -61,7 +61,7 @@ class TokenizeBehaviorTest extends TestCase
                 'alias' => 'Users',
             ]])
             ->getMock();
-        $table->primaryKey('id');
+        $table->setPrimaryKey('id');
 
         $behavior = $this->getMockBuilder('Muffin\Tokenize\Model\Behavior\TokenizeBehavior')
             ->setMethods(['fields', 'tokenize'])
