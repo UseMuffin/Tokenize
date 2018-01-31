@@ -1,7 +1,8 @@
 <?php
 namespace Muffin\Tokenize\Test\TestCase\Controller;
 
-use Cake\Network\Response;
+use Cake\Http\Response;
+use Cake\Http\ServerRequest;
 use Cake\TestSuite\TestCase;
 use Muffin\Tokenize\Controller\TokensController;
 
@@ -12,13 +13,10 @@ class TokensControllerTest extends TestCase
      */
     public function testVerify()
     {
-        $request = $this->getMockBuilder('Cake\Network\Request')
-            ->setMethods(['param'])
-            ->getMock();
-        $request->expects($this->once())
-            ->method('param')
-            ->with('token')
-            ->will($this->returnValue('foo'));
+        $request = new ServerRequest();
+        $request->addParams([
+            'token' => 'foo',
+        ]);
 
         $controller = new TokensController($request, new Response());
         $controller->Tokens = $this->getMockForModel('Muffin/Tokenize.Tokens', ['verify']);

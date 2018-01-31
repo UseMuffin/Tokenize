@@ -2,11 +2,9 @@ language: php
 
 php:
   - 7.0
-  - 5.5
   - 5.6
   - 7.1
-
-dist: trusty
+  - 7.2
 
 env:
   matrix:
@@ -15,13 +13,6 @@ env:
     - DB=sqlite db_dsn='sqlite:///:memory:'
   global:
     - DEFAULT=1
-
-services:
-  - postgresql
-  - mysql
-
-addons:
-  postgresql: "9.4"
 
 matrix:
   fast_finish: true

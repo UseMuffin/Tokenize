@@ -1,7 +1,7 @@
 <?php
 namespace Muffin\Tokenize\Model\Table;
 
-use Cake\Database\Schema\Table as Schema;
+use Cake\Database\Schema\TableSchema;
 use Cake\Event\Event;
 use Cake\ORM\Query;
 use Cake\ORM\Table;
@@ -20,9 +20,9 @@ class TokensTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('tokenize_tokens');
-        $this->primaryKey('id');
-        $this->displayField('token');
+        $this->setTable('tokenize_tokens');
+        $this->setPrimaryKey('id');
+        $this->setDisplayField('token');
 
         $this->addBehavior('Timestamp');
     }
@@ -76,7 +76,7 @@ class TokensTable extends Table
         if (!empty($result['foreign_data'])) {
             $table = $this->foreignTable($result);
             $fields = $result['foreign_data'];
-            $conditions = [$table->primaryKey() => $result['foreign_key']];
+            $conditions = [$table->getPrimaryKey() => $result['foreign_key']];
             $table->updateAll($fields, $conditions);
         }
 
@@ -105,12 +105,12 @@ class TokensTable extends Table
     }
 
     /**
-     * @param \Cake\Database\Schema\Table $schema Schema
-     * @return \Cake\Database\Schema\Table
+     * @param \Cake\Database\Schema\TableSchema $schema Schema
+     * @return \Cake\Database\Schema\TableSchema
      */
-    protected function _initializeSchema(Schema $schema)
+    protected function _initializeSchema(TableSchema $schema)
     {
-        $schema->columnType('foreign_data', 'json');
+        $schema->setColumnType('foreign_data', 'json');
 
         return $schema;
     }

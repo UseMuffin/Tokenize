@@ -33,7 +33,7 @@ class TokenizeBehavior extends Behavior
     {
         $this->verifyConfig();
 
-        $this->_table->hasMany($this->config('associationAlias'), [
+        $this->_table->hasMany($this->getConfig('associationAlias'), [
             'className' => 'Muffin/Tokenize.Tokens',
             'foreignKey' => 'foreign_key',
             'conditions' => [
@@ -66,7 +66,7 @@ class TokenizeBehavior extends Behavior
             return;
         }
 
-        $token = $this->tokenize($entity->{$this->_table->primaryKey()}, $data);
+        $token = $this->tokenize($entity->{$this->_table->getPrimaryKey()}, $data);
         $this->_table->dispatchEvent('Model.afterTokenize', compact('entity', 'token'));
     }
 
@@ -82,7 +82,7 @@ class TokenizeBehavior extends Behavior
             return;
         }
 
-        $token = $this->tokenize($entity->{$this->_table->primaryKey()}, $options['tokenize_fields']);
+        $token = $this->tokenize($entity->{$this->_table->getPrimaryKey()}, $options['tokenize_fields']);
         $this->_table->dispatchEvent('Model.afterTokenize', compact('entity', 'token'));
     }
 
@@ -95,11 +95,11 @@ class TokenizeBehavior extends Behavior
      */
     public function tokenize($id, array $data = [])
     {
-        $assoc = $this->config('associationAlias');
+        $assoc = $this->getConfig('associationAlias');
 
         $tokenData = [
-            'foreign_alias' => $this->_table->alias(),
-            'foreign_table' => $this->_table->table(),
+            'foreign_alias' => $this->_table->getAlias(),
+            'foreign_table' => $this->_table->getTable(),
             'foreign_key' => $id,
             'foreign_data' => $data,
         ];
@@ -127,12 +127,12 @@ class TokenizeBehavior extends Behavior
     public function fields(EntityInterface $entity)
     {
         $fields = [];
-        foreach ((array)$this->config('fields') as $field) {
-            if (!$entity->dirty($field)) {
+        foreach ((array)$this->getConfig('fields') as $field) {
+            if (!$entity->isDirty($field)) {
                 continue;
             }
             $fields[$field] = $entity->$field;
-            $entity->dirty($field, false);
+            $entity->setDirty($field, false);
         }
 
         return $fields;
