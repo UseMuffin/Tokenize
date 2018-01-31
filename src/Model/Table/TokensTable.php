@@ -30,9 +30,9 @@ class TokensTable extends Table
     /**
      * Custom finder "token"
      *
-     * @param \Cake\Datasource\Query $query Query
+     * @param \Cake\ORM\Query $query Query
      * @param array $options Options
-     * @return \Cake\Datasource\Query
+     * @return \Cake\ORM\Query
      */
     public function findToken(Query $query, array $options)
     {
@@ -48,7 +48,7 @@ class TokensTable extends Table
     /**
      * Delete all expired or used tokens.
      *
-     * @return bool
+     * @return int
      */
     public function deleteAllExpiredOrUsed()
     {
@@ -76,7 +76,7 @@ class TokensTable extends Table
         if (!empty($result['foreign_data'])) {
             $table = $this->foreignTable($result);
             $fields = $result['foreign_data'];
-            $conditions = [$table->getPrimaryKey() => $result['foreign_key']];
+            $conditions = [(string)$table->getPrimaryKey() => $result['foreign_key']];
             $table->updateAll($fields, $conditions);
         }
 
@@ -90,7 +90,7 @@ class TokensTable extends Table
 
     /**
      * @param \Muffin\Tokenize\Model\Entity\Token $token Token entity
-     * @return \Cake\Datasource\RepositoryInterface
+     * @return \Cake\ORM\Table
      */
     protected function foreignTable(Token $token)
     {

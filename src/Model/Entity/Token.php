@@ -5,6 +5,17 @@ use Cake\Core\Configure;
 use Cake\ORM\Entity;
 use Cake\Utility\Security;
 
+/**
+ * Token Entity
+ *
+ * @property int $id
+ * @property string $token
+ * @property string $foreign_alias
+ * @property string $foreign_table
+ * @property string $foreign_key
+ * @property string $foreign_data
+ * @property bool $status
+ */
 class Token extends Entity
 {
     const DEFAULT_LIFETIME = '3 days';
