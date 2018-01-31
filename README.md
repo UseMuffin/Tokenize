@@ -1,7 +1,7 @@
 # Tokenize
 
 [![Build Status](https://img.shields.io/travis/UseMuffin/Tokenize/master.svg?style=flat-square)](https://travis-ci.org/UseMuffin/Tokenize)
-[![Coverage](https://img.shields.io/coveralls/UseMuffin/Tokenize/master.svg?style=flat-square)](https://coveralls.io/r/UseMuffin/Tokenize)
+[![Coverage Status](https://img.shields.io/codecov/c/github/UseMuffin/Tokenize.svg?style=flat-square)](https://codecov.io/github/UseMuffin/Tokenize)
 [![Total Downloads](https://img.shields.io/packagist/dt/muffin/tokenize.svg?style=flat-square)](https://packagist.org/packages/muffin/tokenize)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
