@@ -40,13 +40,14 @@ Plugin::load('Muffin/Tokenize', ['routes' => true]);
 
 This will ensure that the route for `/verify/:token` style URL is configured.
 
-You can also customize the token's length and lifetime through `Configure` as
+You can also customize the token's length, lifetime and table through `Configure` as
 shown below:
 
 ```php
 Configure::write('Muffin/Tokenize', [
     'lifetime' => '3 days', // Default value
     'length' => 32, // Default value
+    'table' => 'tokenize_tokens', // Default value
 ]);
 ```
 
