@@ -1,6 +1,7 @@
 <?php
 namespace Muffin\Tokenize\Test\TestCase\Model\Table;
 
+use Cake\Core\Configure;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
@@ -68,5 +69,20 @@ class TokensTableTest extends TestCase
     {
         $result = $this->Tokens->verify('1736a03c6c811ef5e02a364f39521590');
         $this->assertTrue($result instanceof \Muffin\Tokenize\Model\Entity\Token);
+    }
+
+    public function testTableConfig()
+    {
+        Configure::write('Muffin/Tokenize.table', 'tokens');
+        $this->Tokens->initialize([]);
+
+        $result = $this->Tokens->getTable();
+        $this->assertEquals('tokens', $result);
+    }
+
+    public function testTableConfigDefault()
+    {
+        $result = $this->Tokens->getTable();
+        $this->assertEquals('tokenize_tokens', $result);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace Muffin\Tokenize\Model\Table;
 
+use Cake\Core\Configure;
 use Cake\Database\Schema\TableSchema;
 use Cake\Event\Event;
 use Cake\ORM\Query;
@@ -12,6 +13,8 @@ use Muffin\Tokenize\Model\Entity\Token;
 class TokensTable extends Table
 {
 
+    const DEFAULT_TABLE = 'tokenize_tokens';
+
     /**
      * Initialize table
      *
@@ -20,7 +23,9 @@ class TokensTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->setTable('tokenize_tokens');
+        $table = Configure::read('Muffin/Tokenize.table', self::DEFAULT_TABLE);
+
+        $this->setTable($table);
         $this->setPrimaryKey('id');
         $this->setDisplayField('token');
 
