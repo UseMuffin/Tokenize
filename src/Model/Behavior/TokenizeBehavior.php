@@ -37,8 +37,8 @@ class TokenizeBehavior extends Behavior
             'className' => 'Muffin/Tokenize.Tokens',
             'foreignKey' => 'foreign_key',
             'conditions' => [
-                'foreign_alias' => $this->_table->alias(),
-                'foreign_table' => $this->_table->table(),
+                'foreign_alias' => $this->_table->getAlias(),
+                'foreign_table' => $this->_table->getTable(),
             ],
             'dependent' => true,
         ]);

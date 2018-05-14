@@ -14,11 +14,7 @@ class TokensControllerTest extends TestCase
     public function testVerify()
     {
         $request = new ServerRequest();
-        $request->addParams([
-            'token' => 'foo',
-        ]);
-
-        $controller = new TokensController($request, new Response());
+        $controller = new TokensController($request->withParam('token', 'foo'), new Response());
         $controller->Tokens = $this->getMockForModel('Muffin/Tokenize.Tokens', ['verify']);
         $controller->Tokens->expects($this->once())
             ->method('verify')

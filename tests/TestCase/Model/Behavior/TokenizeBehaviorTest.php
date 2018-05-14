@@ -93,7 +93,7 @@ class TokenizeBehaviorTest extends TestCase
                 'alias' => 'Users',
             ]])
             ->getMock();
-        $table->primaryKey('id');
+        $table->setPrimaryKey('id');
         $table->expects($this->once())
             ->method('dispatchEvent')
             ->with('Model.afterTokenize', compact('entity', 'token'));
@@ -129,7 +129,7 @@ class TokenizeBehaviorTest extends TestCase
                 'alias' => 'Users',
             ]])
             ->getMock();
-        $table->primaryKey('id');
+        $table->setPrimaryKey('id');
         $table->expects($this->once())
             ->method('dispatchEvent')
             ->with('Model.afterTokenize', compact('entity', 'token'));
@@ -170,7 +170,7 @@ class TokenizeBehaviorTest extends TestCase
                 'alias' => 'Users',
             ]])
             ->getMock();
-        $table->primaryKey('id');
+        $table->setPrimaryKey('id');
 
         $table->Tokens = $this->getMockBuilder('Muffin\Tokenize\Model\Table\TokensTable')
             ->setMethods(['newEntity', 'save'])
