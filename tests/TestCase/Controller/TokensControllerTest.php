@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Muffin\Tokenize\Test\TestCase\Controller;
 
 use Cake\Http\Response;
@@ -11,7 +13,7 @@ class TokensControllerTest extends TestCase
     /**
      * @group unit
      */
-    public function testVerify()
+    public function testVerify(): void
     {
         $request = new ServerRequest();
         $controller = new TokensController($request->withParam('token', 'foo'), new Response());

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Muffin\Tokenize\Test\TestCase\Model\Table;
 
 use Cake\Core\Configure;
@@ -14,19 +16,19 @@ class TokensTableTest extends TestCase
         'plugin.Muffin/Tokenize.Users',
     ];
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->Tokens = TableRegistry::get('Muffin/Tokenize.Tokens');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         TableRegistry::clear();
     }
 
-    public function testFindToken()
+    public function testFindToken(): void
     {
         $result = $this->Tokens->find('token', ['token' => 'invalid']);
         $this->assertCount(0, $result);
@@ -44,7 +46,7 @@ class TokensTableTest extends TestCase
     /**
      * @expectedException \Cake\Datasource\Exception\RecordNotFoundException
      */
-    public function testVerifyThrowsExceptionOnInvalidToken()
+    public function testVerifyThrowsExceptionOnInvalidToken(): void
     {
         $this->Tokens->verify('invalid');
     }
@@ -52,7 +54,7 @@ class TokensTableTest extends TestCase
     /**
      * @expectedException \Cake\Datasource\Exception\RecordNotFoundException
      */
-    public function testVerifyThrowsExceptionOnUsedToken()
+    public function testVerifyThrowsExceptionOnUsedToken(): void
     {
         $this->Tokens->verify('used');
     }
@@ -60,18 +62,18 @@ class TokensTableTest extends TestCase
     /**
      * @expectedException \Cake\Datasource\Exception\RecordNotFoundException
      */
-    public function testVerifyThrowsExceptionOnExpiredToken()
+    public function testVerifyThrowsExceptionOnExpiredToken(): void
     {
         $this->Tokens->verify('expired');
     }
 
-    public function testVerify()
+    public function testVerify(): void
     {
         $result = $this->Tokens->verify('1736a03c6c811ef5e02a364f39521590');
         $this->assertTrue($result instanceof \Muffin\Tokenize\Model\Entity\Token);
     }
 
-    public function testTableConfig()
+    public function testTableConfig(): void
     {
         Configure::write('Muffin/Tokenize.table', 'tokens');
         $this->Tokens->initialize([]);
@@ -80,7 +82,7 @@ class TokensTableTest extends TestCase
         $this->assertEquals('tokens', $result);
     }
 
-    public function testTableConfigDefault()
+    public function testTableConfigDefault(): void
     {
         $result = $this->Tokens->getTable();
         $this->assertEquals('tokenize_tokens', $result);

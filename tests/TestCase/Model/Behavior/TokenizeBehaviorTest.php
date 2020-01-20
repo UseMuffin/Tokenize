@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Muffin\Tokenize\Test\TestCase\Model\Behavior;
 
 use Cake\Event\Event;
@@ -18,13 +20,13 @@ class TokenizeBehaviorTest extends TestCase
         'plugin.Muffin/Tokenize.Tokens',
     ];
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         TableRegistry::clear();
     }
 
-    public function testInitialize()
+    public function testInitialize(): void
     {
         $table = TableRegistry::get('Users', ['table' => 'tokenize_users']);
         $table->addBehavior('Muffin/Tokenize.Tokenize', [
@@ -47,7 +49,7 @@ class TokenizeBehaviorTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testBeforeSaveWithNewEntity()
+    public function testBeforeSaveWithNewEntity(): void
     {
         $fields = ['email' => 'jadb@cakephp.org'];
         $entity = new Entity($fields);
@@ -77,7 +79,7 @@ class TokenizeBehaviorTest extends TestCase
         $this->assertEquals($fields, $options['tokenize_fields']);
     }
 
-    public function testBeforeSaveWithExistingEntity()
+    public function testBeforeSaveWithExistingEntity(): void
     {
         $id = 1;
         $fields = ['email' => 'jadb@cakephp.org'];
@@ -114,7 +116,7 @@ class TokenizeBehaviorTest extends TestCase
         $behavior->beforeSave(new Event('Model.beforeSave'), $entity, $options, true);
     }
 
-    public function testAfterSave()
+    public function testAfterSave(): void
     {
         $id = 1;
         $fields = ['email' => 'jadb@cakephp.org'];
@@ -146,12 +148,12 @@ class TokenizeBehaviorTest extends TestCase
         $behavior->afterSave(new Event('Model.afterSave'), $entity, $options);
     }
 
-    public function testFields()
+    public function testFields(): void
     {
         $this->markTestIncomplete('Not tested yet.');
     }
 
-    public function testTokenize()
+    public function testTokenize(): void
     {
         $id = 1;
         $data = ['email' => 'jadb@cakephp.org'];
