@@ -10,7 +10,6 @@ use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use DateTime;
-use Muffin\Tokenize\Model\Entity\Token;
 
 class TokensTable extends Table
 {
