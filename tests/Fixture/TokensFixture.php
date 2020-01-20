@@ -52,7 +52,7 @@ class TokensFixture extends TestFixture
         ],
     ];
 
-    public function init()
+    public function init(): void
     {
         $format = 'Y-m-d H:i:s';
         foreach ($this->records as &$record) {
