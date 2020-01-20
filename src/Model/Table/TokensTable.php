@@ -108,13 +108,13 @@ class TokensTable extends Table
     protected function foreignTable(EntityInterface $token): Table
     {
         $options = [];
-        if (!TableRegistry::exists($token['foreign_alias'])) {
+        if (!TableRegistry::getTableLocator()->exists($token['foreign_alias'])) {
             $options = [
                 'table' => $token['foreign_table'],
             ];
         }
 
-        return TableRegistry::get($token['foreign_alias'], $options);
+        return TableRegistry::getTableLocator()->get($token['foreign_alias'], $options);
     }
 
     /**
