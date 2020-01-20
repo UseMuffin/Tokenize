@@ -2,7 +2,6 @@
 namespace Muffin\Tokenize\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
-use Muffin\Tokenize\Model\Entity\Token;
 
 class TokensFixture extends TestFixture
 {

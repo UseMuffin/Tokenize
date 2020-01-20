@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Muffin\Tokenize\Model\Entity;
 
 use Cake\Core\Configure;
@@ -60,7 +62,7 @@ class Token extends Entity
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->token;
     }
