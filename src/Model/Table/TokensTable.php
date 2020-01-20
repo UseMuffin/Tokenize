@@ -102,11 +102,11 @@ class TokensTable extends Table
     /**
      * Fetch the associated foreign table based on the token's foreign_alias
      *
-     * @param \Muffin\Tokenize\Model\Entity\Token $token Token entity
+     * @param array|\Cake\Datasource\EntityInterface $token Token entity
      *
      * @return \Cake\ORM\Table
      */
-    protected function foreignTable(Token $token): Table
+    protected function foreignTable(EntityInterface $token): Table
     {
         $options = [];
         if (!TableRegistry::exists($token['foreign_alias'])) {
