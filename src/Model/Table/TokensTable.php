@@ -77,10 +77,7 @@ class TokensTable extends Table
      */
     public function verify($token): ?EntityInterface
     {
-        $result = $this->find('token', compact('token'))->first();
-        if (!$result) {
-            return null;
-        }
+        $result = $this->find('token', compact('token'))->firstOrFail();
 
         $event = $this->dispatchEvent('Muffin/Tokenize.beforeVerify', ['token' => $result]);
         if ($event->isStopped()) {
