@@ -73,15 +73,18 @@ class TokensTable extends Table
      *
      * @param string $token Token
      *
-     * @return bool|\Cake\Datasource\EntityInterface
+     * @return null|\Cake\Datasource\EntityInterface
      */
-    public function verify($token): EntityInterface
+    public function verify($token): ?EntityInterface
     {
-        $result = $this->find('token', compact('token'))->firstOrFail();
+        $result = $this->find('token', compact('token'))->first();
+        if (!$result) {
+            return null;
+        }
 
         $event = $this->dispatchEvent('Muffin/Tokenize.beforeVerify', ['token' => $result]);
         if ($event->isStopped()) {
-            return false;
+            return null;
         }
 
         if (!empty($result['foreign_data'])) {

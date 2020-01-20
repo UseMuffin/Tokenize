@@ -74,8 +74,6 @@ class TokenizeBehavior extends Behavior
 
         $token = $this->tokenize($entity->{$this->_table->getPrimaryKey()}, $data);
         $this->_table->dispatchEvent('Model.afterTokenize', compact('entity', 'token'));
-
-        return;
     }
 
     /**
@@ -95,8 +93,6 @@ class TokenizeBehavior extends Behavior
 
         $token = $this->tokenize($entity->{$this->_table->getPrimaryKey()}, $options['tokenize_fields']);
         $this->_table->dispatchEvent('Model.afterTokenize', compact('entity', 'token'));
-
-        return;
     }
 
     /**
