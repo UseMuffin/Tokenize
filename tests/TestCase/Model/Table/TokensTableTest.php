@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Muffin\Tokenize\Test\TestCase\Model\Table;
 
 use Cake\Core\Configure;
+use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
@@ -41,27 +42,21 @@ class TokensTableTest extends TestCase
         $this->assertCount(1, $result);
     }
 
-    /**
-     * @expectedException \Cake\Datasource\Exception\RecordNotFoundException
-     */
     public function testVerifyThrowsExceptionOnInvalidToken(): void
     {
+        $this->expectException(RecordNotFoundException::class);
         $this->Tokens->verify('invalid');
     }
 
-    /**
-     * @expectedException \Cake\Datasource\Exception\RecordNotFoundException
-     */
     public function testVerifyThrowsExceptionOnUsedToken(): void
     {
+        $this->expectException(RecordNotFoundException::class);
         $this->Tokens->verify('used');
     }
 
-    /**
-     * @expectedException \Cake\Datasource\Exception\RecordNotFoundException
-     */
     public function testVerifyThrowsExceptionOnExpiredToken(): void
     {
+        $this->expectException(RecordNotFoundException::class);
         $this->Tokens->verify('expired');
     }
 
