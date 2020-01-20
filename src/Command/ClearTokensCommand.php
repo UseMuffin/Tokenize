@@ -20,7 +20,7 @@ class ClearTokensCommand extends Command
      *
      * @return null|void|int The exit code or null for success
      */
-    public function execute(Arguments $args, ConsoleIo $io): ?int
+    public function execute(Arguments $args, ConsoleIo $io)
     {
         $count = $this->loadModel('Muffin/Tokenize.Tokens')->deleteAllExpiredOrUsed();
         $io->out(__n('One token deleted', '{0} tokens deleted', $count, $count));
