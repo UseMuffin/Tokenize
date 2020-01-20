@@ -29,5 +29,4 @@ class Plugin extends BasePlugin
     {
         return $commands->add('clear_tokens', ClearTokensCommand::class);
     }
-
 }

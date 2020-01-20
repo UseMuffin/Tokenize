@@ -5,16 +5,13 @@ namespace Muffin\Tokenize\Test\TestCase\Model\Behavior;
 
 use Cake\Event\Event;
 use Cake\ORM\Entity;
-use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Muffin\Tokenize\Model\Behavior\TokenizeBehavior;
 use Muffin\Tokenize\Model\Entity\Token;
-use Muffin\Tokenize\Model\Table\TokensTable;
 
 class TokenizeBehaviorTest extends TestCase
 {
-
     public $fixtures = [
         'plugin.Muffin/Tokenize.Users',
         'plugin.Muffin/Tokenize.Tokens',

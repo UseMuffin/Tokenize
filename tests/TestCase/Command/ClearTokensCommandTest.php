@@ -5,7 +5,6 @@ namespace Tokenize\Test\TestCase\Command;
 
 use Cake\TestSuite\ConsoleIntegrationTestTrait;
 use Cake\TestSuite\TestCase;
-use Tokenize\Command\ClearTokensCommand;
 
 /**
  * Tokenize\Command\ClearTokensCommand Test Case

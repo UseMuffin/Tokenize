@@ -7,7 +7,6 @@ use Cake\Controller\Controller;
 
 class TokensController extends Controller
 {
-
     /**
      * Verify action
      *

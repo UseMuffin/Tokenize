@@ -7,7 +7,6 @@ use Cake\TestSuite\Fixture\TestFixture;
 
 class TokensFixture extends TestFixture
 {
-
     public $table = 'tokenize_tokens';
 
     public $fields = [
@@ -23,7 +22,7 @@ class TokensFixture extends TestFixture
         'modified' => ['type' => 'datetime'],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id']],
-        ]
+        ],
     ];
 
     public $records = [

@@ -4,10 +4,8 @@ declare(strict_types=1);
 namespace Muffin\Tokenize\Test\TestCase\Model\Table;
 
 use Cake\Core\Configure;
-use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
-use Muffin\Tokenize\Model\Table\TokensTable;
 
 class TokensTableTest extends TestCase
 {

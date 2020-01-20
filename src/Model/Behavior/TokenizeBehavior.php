@@ -7,7 +7,6 @@ use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\ORM\Behavior;
-use Muffin\Tokenize\Model\Table\TokensTable;
 
 class TokenizeBehavior extends Behavior
 {
@@ -21,7 +20,7 @@ class TokenizeBehavior extends Behavior
         'associationAlias' => 'Tokens',
         'implementedEvents' => [
             'Model.beforeSave' => 'beforeSave',
-        ]
+        ],
     ];
 
     /**
@@ -75,6 +74,7 @@ class TokenizeBehavior extends Behavior
 
         $token = $this->tokenize($entity->{$this->_table->getPrimaryKey()}, $data);
         $this->_table->dispatchEvent('Model.afterTokenize', compact('entity', 'token'));
+
         return;
     }
 
@@ -95,6 +95,7 @@ class TokenizeBehavior extends Behavior
 
         $token = $this->tokenize($entity->{$this->_table->getPrimaryKey()}, $options['tokenize_fields']);
         $this->_table->dispatchEvent('Model.afterTokenize', compact('entity', 'token'));
+
         return;
     }
 

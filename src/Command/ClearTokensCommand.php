@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Muffin\Tokenize\Command;
 
-use Cake\Console\Arguments;
 use Cake\Command\Command;
+use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 
 /**
@@ -24,6 +24,7 @@ class ClearTokensCommand extends Command
     {
         $count = $this->loadModel('Muffin/Tokenize.Tokens')->deleteAllExpiredOrUsed();
         $io->out(__n('One token deleted', '{0} tokens deleted', $count, $count));
+
         return 0;
     }
 }

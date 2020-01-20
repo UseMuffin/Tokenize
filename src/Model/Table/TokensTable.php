@@ -6,7 +6,6 @@ namespace Muffin\Tokenize\Model\Table;
 use Cake\Core\Configure;
 use Cake\Database\Schema\TableSchemaInterface;
 use Cake\Datasource\EntityInterface;
-use Cake\Event\Event;
 use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
@@ -15,8 +14,7 @@ use Muffin\Tokenize\Model\Entity\Token;
 
 class TokensTable extends Table
 {
-
-    const DEFAULT_TABLE = 'tokenize_tokens';
+    public const DEFAULT_TABLE = 'tokenize_tokens';
 
     /**
      * Initialize table
@@ -49,7 +47,7 @@ class TokensTable extends Table
         $options += [
             'token' => null,
             'expired >' => new DateTime(),
-            'status' => false
+            'status' => false,
         ];
 
         return $query->where($options);
