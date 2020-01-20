@@ -10,6 +10,6 @@ parameters:
             count: 1
             path: src/Controller/TokensController.php
 
-        -   message: "#^PHPDoc tag @param for parameter $token with type array\|Cake\\\\Datasource\\\\EntityInterface is not subtype of native type Cake\\\\Datasource\\\\EntityInterface\\.$#"
+        -   message: "#^PHPDoc tag @param for parameter $token with type array|Cake\\\\Datasource\\\\EntityInterface is not subtype of native type Cake\\\\Datasource\\\\EntityInterface\\.$#"
             count: 1
             path: src/Model/Table/TokensTable.php
