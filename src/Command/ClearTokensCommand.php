@@ -22,6 +22,7 @@ class ClearTokensCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
+        /** @psalm-suppress UndefinedInterfaceMethod */
         $count = $this->loadModel('Muffin/Tokenize.Tokens')->deleteAllExpiredOrUsed();
         $io->out(__n('One token deleted', '{0} tokens deleted', $count, $count));
 

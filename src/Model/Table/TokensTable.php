@@ -10,6 +10,7 @@ use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use DateTime;
+use RuntimeException;
 
 class TokensTable extends Table
 {
@@ -72,9 +73,9 @@ class TokensTable extends Table
      *
      * @param string $token Token
      *
-     * @return null|\Cake\Datasource\EntityInterface
+     * @return null|array<array-key, mixed>|\Cake\Datasource\EntityInterface
      */
-    public function verify($token): ?EntityInterface
+    public function verify($token)
     {
         $result = $this->find('token', compact('token'))->firstOrFail();
 
@@ -84,13 +85,22 @@ class TokensTable extends Table
         }
 
         if (!empty($result['foreign_data'])) {
+            /** @psalm-suppress PossiblyInvalidArgument **/
             $table = $this->foreignTable($result);
             $fields = $result['foreign_data'];
+            if (is_array($table->getPrimaryKey())) {
+                throw new RuntimeException('Array primary keys are not supported');
+            }
+
+            /** @psalm-suppress PossiblyInvalidCast */
             $conditions = [(string)$table->getPrimaryKey() => $result['foreign_key']];
             $table->updateAll($fields, $conditions);
         }
 
+        /** @psalm-suppress PossiblyInvalidMethodCall **/
         $result->set('status', true);
+
+        /** @psalm-suppress PossiblyInvalidArgument **/
         $this->save($result);
 
         $this->dispatchEvent('Muffin/Tokenize.afterVerify', ['token' => $result]);
@@ -101,7 +111,7 @@ class TokensTable extends Table
     /**
      * Fetch the associated foreign table based on the token's foreign_alias
      *
-     * @param array|\Cake\Datasource\EntityInterface $token Token entity
+     * @param \Cake\Datasource\EntityInterface $token Token entity
      *
      * @return \Cake\ORM\Table
      */

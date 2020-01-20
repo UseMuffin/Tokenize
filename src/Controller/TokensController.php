@@ -14,6 +14,7 @@ class TokensController extends Controller
      */
     public function verify(): void
     {
+        /** @psalm-suppress UndefinedInterfaceMethod */
         $this->loadModel('Muffin/Tokenize.Tokens')
             ->verify($this->request->getParam('token'));
     }
