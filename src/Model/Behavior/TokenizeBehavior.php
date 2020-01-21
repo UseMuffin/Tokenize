@@ -1,11 +1,12 @@
 <?php
+declare(strict_types=1);
+
 namespace Muffin\Tokenize\Model\Behavior;
 
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\ORM\Behavior;
-use Muffin\Tokenize\Model\Table\TokensTable;
 
 class TokenizeBehavior extends Behavior
 {
@@ -19,7 +20,7 @@ class TokenizeBehavior extends Behavior
         'associationAlias' => 'Tokens',
         'implementedEvents' => [
             'Model.beforeSave' => 'beforeSave',
-        ]
+        ],
     ];
 
     /**
@@ -27,13 +28,14 @@ class TokenizeBehavior extends Behavior
      * `tokenize_tokens` table.
      *
      * @param array $config Config
+     *
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         $this->verifyConfig();
 
-        $this->_table->hasMany($this->getConfig('associationAlias'), [
+        $options = [
             'className' => 'Muffin/Tokenize.Tokens',
             'foreignKey' => 'foreign_key',
             'conditions' => [
@@ -41,16 +43,20 @@ class TokenizeBehavior extends Behavior
                 'foreign_table' => $this->_table->getTable(),
             ],
             'dependent' => true,
-        ]);
+        ];
+        $this->_table->hasMany($this->getConfig('associationAlias'), $options);
     }
 
     /**
-     * @param \Cake\Event\Event $event Event
-     * @param \Cake\Datasource\EntityInterface $entity Entity
-     * @param \ArrayObject $options Options
+     * beforeSave callback.
+     *
+     * @param \Cake\Event\Event                $event   Event
+     * @param \Cake\Datasource\EntityInterface $entity  Entity
+     * @param \ArrayObject                     $options Options
+     *
      * @return void
      */
-    public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options)
+    public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options): void
     {
         $data = $this->fields($entity);
 
@@ -71,12 +77,15 @@ class TokenizeBehavior extends Behavior
     }
 
     /**
-     * @param \Cake\Event\Event $event Event
-     * @param \Cake\Datasource\EntityInterface $entity Entity
-     * @param \ArrayObject $options Options
+     * afterSave callback.
+     *
+     * @param \Cake\Event\Event                $event   Event
+     * @param \Cake\Datasource\EntityInterface $entity  Entity
+     * @param \ArrayObject                     $options Options
+     *
      * @return void
      */
-    public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options)
+    public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options): void
     {
         if (empty($options['tokenize_fields'])) {
             return;
@@ -89,8 +98,9 @@ class TokenizeBehavior extends Behavior
     /**
      * Creates a token for a data sample.
      *
-     * @param int|string $id Id
-     * @param array $data Data
+     * @param int|string $id   Id
+     * @param array      $data Data
+     *
      * @return mixed
      */
     public function tokenize($id, array $data = [])
@@ -122,9 +132,10 @@ class TokenizeBehavior extends Behavior
      * Returns fields that have been marked as protected.
      *
      * @param \Cake\Datasource\EntityInterface $entity Entity
+     *
      * @return array
      */
-    public function fields(EntityInterface $entity)
+    protected function fields(EntityInterface $entity): array
     {
         $fields = [];
         foreach ((array)$this->getConfig('fields') as $field) {

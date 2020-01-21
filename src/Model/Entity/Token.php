@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Muffin\Tokenize\Model\Entity;
 
 use Cake\Core\Configure;
@@ -18,9 +20,9 @@ use Cake\Utility\Security;
  */
 class Token extends Entity
 {
-    const DEFAULT_LIFETIME = '3 days';
+    public const DEFAULT_LIFETIME = '3 days';
 
-    const DEFAULT_LENGTH = 32;
+    public const DEFAULT_LENGTH = 32;
 
     /**
      * Token constructor.
@@ -34,7 +36,7 @@ class Token extends Entity
         $properties += [
             'token' => self::random(),
             'status' => false,
-            'expired' => date('Y-m-d H:i:s', strtotime($lifetime))
+            'expired' => date('Y-m-d H:i:s', strtotime($lifetime)),
         ];
         parent::__construct($properties, $options);
     }
@@ -60,7 +62,7 @@ class Token extends Entity
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->token;
     }

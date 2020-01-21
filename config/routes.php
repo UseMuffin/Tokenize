@@ -1,10 +1,10 @@
 <?php
-
+use Cake\Routing\RouteBuilder;
 use Cake\Core\Configure;
 use Cake\Routing\Router;
 use Muffin\Tokenize\Model\Entity\Token;
 
-Router::plugin('Muffin/Tokenize', function ($routes) {
+Router::plugin('Muffin/Tokenize', [], function (RouteBuilder $routes) {
     $length = Configure::read('Muffin/Tokenize.length') ?: Token::DEFAULT_LENGTH;
     $defaults = [
         'controller' => 'Tokens',

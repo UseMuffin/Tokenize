@@ -5,7 +5,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/muffin/tokenize.svg?style=flat-square)](https://packagist.org/packages/muffin/tokenize)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
-Security tokens for CakePHP 3.
+Security tokens for CakePHP 4.
 
 ## Why?
 
@@ -32,10 +32,10 @@ You then need to load the plugin. You can use the shell command:
 bin/cake plugin load Muffin/Tokenize --routes
 ```
 
-or by manually adding statement shown below to `bootstrap.php`:
+or by manually adding statement shown below to `src/Application.php`:
 
 ```php
-Plugin::load('Muffin/Tokenize', ['routes' => true]);
+$this->addPlugin('Muffin/Tokenize', ['routes' => true]);
 ```
 
 This will ensure that the route for `/verify/:token` style URL is configured.
@@ -130,4 +130,4 @@ Copyright (c) 2015, [Use Muffin][muffin] and licensed under [The MIT License][mi
 [composer]:http://getcomposer.org
 [mit]:http://www.opensource.org/licenses/mit-license.php
 [muffin]:http://usemuffin.com
-[standards]:http://book.cakephp.org/3.0/en/contributing/cakephp-coding-conventions.html
+[standards]:https://book.cakephp.org/4/en/contributing/cakephp-coding-conventions.html

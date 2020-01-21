@@ -1,30 +1,29 @@
 <?php
+declare(strict_types=1);
+
 namespace Muffin\Tokenize\Test\TestCase\Model\Behavior;
 
 use Cake\Event\Event;
 use Cake\ORM\Entity;
-use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Muffin\Tokenize\Model\Behavior\TokenizeBehavior;
 use Muffin\Tokenize\Model\Entity\Token;
-use Muffin\Tokenize\Model\Table\TokensTable;
 
 class TokenizeBehaviorTest extends TestCase
 {
-
     public $fixtures = [
         'plugin.Muffin/Tokenize.Users',
         'plugin.Muffin/Tokenize.Tokens',
     ];
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         TableRegistry::clear();
     }
 
-    public function testInitialize()
+    public function testInitialize(): void
     {
         $table = TableRegistry::get('Users', ['table' => 'tokenize_users']);
         $table->addBehavior('Muffin/Tokenize.Tokenize', [
@@ -47,7 +46,7 @@ class TokenizeBehaviorTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testBeforeSaveWithNewEntity()
+    public function testBeforeSaveWithNewEntity(): void
     {
         $fields = ['email' => 'jadb@cakephp.org'];
         $entity = new Entity($fields);
@@ -77,7 +76,7 @@ class TokenizeBehaviorTest extends TestCase
         $this->assertEquals($fields, $options['tokenize_fields']);
     }
 
-    public function testBeforeSaveWithExistingEntity()
+    public function testBeforeSaveWithExistingEntity(): void
     {
         $id = 1;
         $fields = ['email' => 'jadb@cakephp.org'];
@@ -114,7 +113,7 @@ class TokenizeBehaviorTest extends TestCase
         $behavior->beforeSave(new Event('Model.beforeSave'), $entity, $options, true);
     }
 
-    public function testAfterSave()
+    public function testAfterSave(): void
     {
         $id = 1;
         $fields = ['email' => 'jadb@cakephp.org'];
@@ -146,12 +145,12 @@ class TokenizeBehaviorTest extends TestCase
         $behavior->afterSave(new Event('Model.afterSave'), $entity, $options);
     }
 
-    public function testFields()
+    public function testFields(): void
     {
         $this->markTestIncomplete('Not tested yet.');
     }
 
-    public function testTokenize()
+    public function testTokenize(): void
     {
         $id = 1;
         $data = ['email' => 'jadb@cakephp.org'];

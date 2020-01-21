@@ -1,27 +1,29 @@
 <?php
+declare(strict_types=1);
+
 namespace Muffin\Tokenize\Model\Table;
 
 use Cake\Core\Configure;
-use Cake\Database\Schema\TableSchema;
-use Cake\Event\Event;
+use Cake\Database\Schema\TableSchemaInterface;
+use Cake\Datasource\EntityInterface;
 use Cake\ORM\Query;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use DateTime;
-use Muffin\Tokenize\Model\Entity\Token;
+use RuntimeException;
 
 class TokensTable extends Table
 {
-
-    const DEFAULT_TABLE = 'tokenize_tokens';
+    public const DEFAULT_TABLE = 'tokenize_tokens';
 
     /**
      * Initialize table
      *
      * @param array $config Config
+     *
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         $table = Configure::read('Muffin/Tokenize.table', self::DEFAULT_TABLE);
 
@@ -35,16 +37,17 @@ class TokensTable extends Table
     /**
      * Custom finder "token"
      *
-     * @param \Cake\ORM\Query $query Query
-     * @param array $options Options
+     * @param \Cake\ORM\Query $query   Query
+     * @param array $options           Options
+     *
      * @return \Cake\ORM\Query
      */
-    public function findToken(Query $query, array $options)
+    public function findToken(Query $query, array $options): Query
     {
         $options += [
             'token' => null,
             'expired >' => new DateTime(),
-            'status' => false
+            'status' => false,
         ];
 
         return $query->where($options);
@@ -55,19 +58,22 @@ class TokensTable extends Table
      *
      * @return int
      */
-    public function deleteAllExpiredOrUsed()
+    public function deleteAllExpiredOrUsed(): int
     {
-        return $this->deleteAll(['OR' => [
-            'expired <' => new DateTime(),
-            'status' => true,
-        ]]);
+        return $this->deleteAll(
+            ['OR' => [
+                'expired <' => new DateTime(),
+                'status' => true,
+            ]]
+        );
     }
 
     /**
      * Verify token
      *
      * @param string $token Token
-     * @return bool|\Cake\Datasource\EntityInterface
+     *
+     * @return null|array<array-key, mixed>|\Cake\Datasource\EntityInterface
      */
     public function verify($token)
     {
@@ -75,17 +81,26 @@ class TokensTable extends Table
 
         $event = $this->dispatchEvent('Muffin/Tokenize.beforeVerify', ['token' => $result]);
         if ($event->isStopped()) {
-            return false;
+            return null;
         }
 
         if (!empty($result['foreign_data'])) {
+            /** @psalm-suppress PossiblyInvalidArgument **/
             $table = $this->foreignTable($result);
             $fields = $result['foreign_data'];
+            if (is_array($table->getPrimaryKey())) {
+                throw new RuntimeException('Array primary keys are not supported');
+            }
+
+            /** @psalm-suppress PossiblyInvalidCast */
             $conditions = [(string)$table->getPrimaryKey() => $result['foreign_key']];
             $table->updateAll($fields, $conditions);
         }
 
+        /** @psalm-suppress PossiblyInvalidMethodCall **/
         $result->set('status', true);
+
+        /** @psalm-suppress PossiblyInvalidArgument **/
         $this->save($result);
 
         $this->dispatchEvent('Muffin/Tokenize.afterVerify', ['token' => $result]);
@@ -94,26 +109,45 @@ class TokensTable extends Table
     }
 
     /**
-     * @param \Muffin\Tokenize\Model\Entity\Token $token Token entity
+     * Fetch the associated foreign table based on the token's foreign_alias
+     *
+     * @param \Cake\Datasource\EntityInterface $token Token entity
+     *
      * @return \Cake\ORM\Table
      */
-    protected function foreignTable(Token $token)
+    protected function foreignTable(EntityInterface $token): Table
     {
         $options = [];
-        if (!TableRegistry::exists($token['foreign_alias'])) {
+        if (!TableRegistry::getTableLocator()->exists($token['foreign_alias'])) {
             $options = [
                 'table' => $token['foreign_table'],
             ];
         }
 
-        return TableRegistry::get($token['foreign_alias'], $options);
+        return TableRegistry::getTableLocator()->get($token['foreign_alias'], $options);
     }
 
     /**
-     * @param \Cake\Database\Schema\TableSchema $schema Schema
-     * @return \Cake\Database\Schema\TableSchema
+     * Override this function in order to alter the schema used by this table.
+     * This function is only called after fetching the schema out of the database.
+     * If you wish to provide your own schema to this table without touching the
+     * database, you can override schema() or inject the definitions though that
+     * method.
+     *
+     * ### Example:
+     *
+     * ```
+     * protected function _initializeSchema(\Cake\Database\Schema\TableSchemaInterface $schema) {
+     *  $schema->setColumnType('preferences', 'json');
+     *  return $schema;
+     * }
+     * ```
+     *
+     * @param \Cake\Database\Schema\TableSchemaInterface $schema Schema
+     *
+     * @return \Cake\Database\Schema\TableSchemaInterface
      */
-    protected function _initializeSchema(TableSchema $schema)
+    protected function _initializeSchema(TableSchemaInterface $schema): TableSchemaInterface
     {
         $schema->setColumnType('foreign_data', 'json');
 

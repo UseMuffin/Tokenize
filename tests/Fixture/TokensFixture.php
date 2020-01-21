@@ -1,12 +1,12 @@
 <?php
+declare(strict_types=1);
+
 namespace Muffin\Tokenize\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
-use Muffin\Tokenize\Model\Entity\Token;
 
 class TokensFixture extends TestFixture
 {
-
     public $table = 'tokenize_tokens';
 
     public $fields = [
@@ -22,7 +22,7 @@ class TokensFixture extends TestFixture
         'modified' => ['type' => 'datetime'],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id']],
-        ]
+        ],
     ];
 
     public $records = [
@@ -52,7 +52,7 @@ class TokensFixture extends TestFixture
         ],
     ];
 
-    public function init()
+    public function init(): void
     {
         $format = 'Y-m-d H:i:s';
         foreach ($this->records as &$record) {

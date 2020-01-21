@@ -1,0 +1,11 @@
+parameters:
+    ignoreErrors:
+        -
+            message: "#^Call to an undefined method Cake\\\\Datasource\\\\RepositoryInterface\\:\\:deleteAllExpiredOrUsed\\(\\)\\.$#"
+            count: 1
+            path: src/Command/ClearTokensCommand.php
+
+        -
+            message: "#^Call to an undefined method Cake\\\\Datasource\\\\RepositoryInterface\\:\\:verify\\(\\)\\.$#"
+            count: 1
+            path: src/Controller/TokensController.php
