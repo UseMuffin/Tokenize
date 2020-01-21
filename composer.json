@@ -1,6 +1,6 @@
 {
     "name": "muffin/tokenize",
-    "description": "Security Tokens",
+    "description": "Security Tokens for CakePHP",
     "type": "cakephp-plugin",
     "keywords": [
         "cakephp",
@@ -30,8 +30,7 @@
         "source": "https://github.com/usemuffin/tokenize"
     },
     "require": {
-        "cakephp/cakephp": "^4.0",
-        "cakephp/migrations": "^3.0"
+        "cakephp/cakephp": "^4.0"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^4.0",
@@ -49,9 +48,7 @@
             "Muffin\\Tokenize\\Test\\": "tests"
         }
     },
-    "prefer-stable": true,
     "config": {
         "sort-packages": true
-    },
-    "minimum-stability": "dev"
+    }
 }
