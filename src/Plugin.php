@@ -44,7 +44,7 @@ class Plugin extends BasePlugin
                 'action' => 'verify',
             ];
             $options = [
-                'token' => '[a-zA-Z0-9]{' . $length .'}',
+                'token' => '[a-zA-Z0-9]{' . $length . '}',
                 'pass' => ['token'],
             ];
             $routes->connect('/verify/:token', $defaults, $options);
