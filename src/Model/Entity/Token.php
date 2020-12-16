@@ -34,7 +34,7 @@ class Token extends Entity
         $properties += [
             'token' => self::random(),
             'status' => false,
-            'expired' => date('Y-m-d H:i:s', strtotime($lifetime))
+            'expired' => date('Y-m-d H:i:s', strtotime($lifetime)),
         ];
         parent::__construct($properties, $options);
     }

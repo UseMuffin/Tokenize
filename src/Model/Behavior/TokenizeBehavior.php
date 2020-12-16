@@ -19,7 +19,7 @@ class TokenizeBehavior extends Behavior
         'associationAlias' => 'Tokens',
         'implementedEvents' => [
             'Model.beforeSave' => 'beforeSave',
-        ]
+        ],
     ];
 
     /**

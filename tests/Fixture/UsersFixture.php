@@ -15,7 +15,7 @@ class UsersFixture extends TestFixture
         'password' => ['type' => 'string'],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id']],
-        ]
+        ],
     ];
 
     public $records = [

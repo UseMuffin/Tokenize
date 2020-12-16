@@ -22,7 +22,7 @@ class TokensFixture extends TestFixture
         'modified' => ['type' => 'datetime'],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id']],
-        ]
+        ],
     ];
 
     public $records = [
