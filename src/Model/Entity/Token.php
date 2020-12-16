@@ -13,7 +13,7 @@ use Cake\Utility\Security;
  * @property string $foreign_alias
  * @property string $foreign_table
  * @property string $foreign_key
- * @property string $foreign_data
+ * @property array $foreign_data
  * @property bool $status
  */
 class Token extends Entity
