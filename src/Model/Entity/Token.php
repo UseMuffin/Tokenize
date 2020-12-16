@@ -13,7 +13,7 @@ use Cake\Utility\Security;
  * @property string $foreign_alias
  * @property string $foreign_table
  * @property string $foreign_key
- * @property string $foreign_data
+ * @property array $foreign_data
  * @property bool $status
  */
 class Token extends Entity
@@ -34,7 +34,7 @@ class Token extends Entity
         $properties += [
             'token' => self::random(),
             'status' => false,
-            'expired' => date('Y-m-d H:i:s', strtotime($lifetime))
+            'expired' => date('Y-m-d H:i:s', strtotime($lifetime)),
         ];
         parent::__construct($properties, $options);
     }

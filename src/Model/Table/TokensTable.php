@@ -44,7 +44,7 @@ class TokensTable extends Table
         $options += [
             'token' => null,
             'expired >' => new DateTime(),
-            'status' => false
+            'status' => false,
         ];
 
         return $query->where($options);
